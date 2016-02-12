@@ -1,5 +1,7 @@
 rabbit:
-  image: rabbitmq
+  image: rabbitmq:3-management
+  ports:
+    - "15672:15672"
 
 celery:
   image: celery
@@ -9,3 +11,18 @@ celery:
     - .:/app
   links:
     - rabbit
+
+db:
+  image: postgres
+
+web:
+  image: django
+  working_dir: /app
+  command: python manage.py runserver 0.0.0.0:8000
+  volumes:
+    - .:/app
+  ports:
+    - "8000:8000"
+  links:
+    - rabbit
+    - db
