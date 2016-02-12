@@ -3,6 +3,8 @@ rabbit:
 
 celery:
   image: celery
+  working_dir: /app
+  command: celery worker -A tasks
   volumes:
     - .:/app
   links:
