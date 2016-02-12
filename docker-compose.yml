@@ -1,0 +1,9 @@
+rabbit:
+  image: rabbitmq
+
+celery:
+  image: celery
+  volumes:
+    - .:/app
+  links:
+    - rabbit
